@@ -1,6 +1,10 @@
 ﻿@page "/categoria/listar"
 
 <h3>Categorias</h3>
+<RadzenButton Text="@text"></RadzenButton>
+@code {
+    string text = "Hi";
+}
 
 <table>
     <tr>
@@ -18,5 +22,17 @@
 </table>
 
 @code {
+    List<Categoria> categorias;
+
+    protected override void OnInitialized()
+    {
+        categorias.Add(new Categoria { Codigo = 1, Descricao = "Supense", Cor = "Cinza" });
+        categorias.Add(new Categoria { Codigo = 1, Descricao = "Romance", Cor = "Rosa" });
+        categorias.Add(new Categoria { Codigo = 1, Descricao = "Ação", Cor = "Vermelho" });
+        categorias.Add(new Categoria { Codigo = 1, Descricao = "Comédia", Cor = "Amarelo" });
+        categorias.Add(new Categoria { Codigo = 1, Descricao = "Aventura", Cor = "Azul" });
+        categorias.Add(new Categoria { Codigo = 1, Descricao = "Drama", Cor = "Roxo" });
+        base.OnInitialized();
+    }
 
 }

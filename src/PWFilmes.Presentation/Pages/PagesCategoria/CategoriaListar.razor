@@ -1,0 +1,41 @@
+﻿@page "/categoria/listar"
+
+@using PWFilmes.Domain
+
+<h3>Categorias</h3>
+
+<RadzenDataGrid AllowFiltering="true" 
+                AllowColumnResize="true" 
+                AllowAlternatingRows="true" 
+                FilterMode="FilterMode.Advanced" 
+                AllowSorting="true" 
+                PageSize="5" 
+                AllowPaging="true" 
+                PagerHorizontalAlign="HorizontalAlign.Left" 
+                ShowPagingSummary="true"
+                Data="@categorias" 
+                TItem="Categoria"
+                ColumnWidth="300px" 
+                LogicalFilterOperator="LogicalFilterOperator.Or">
+    <Columns>
+        <RadzenDataGridColumn TItem="Categoria" Property="Codigo" Title="Código" Width="160px" />
+        <RadzenDataGridColumn TItem="Categoria" Property="Descricao" Title="Descrição" Width="160px" />
+        <RadzenDataGridColumn TItem="Categoria" Property="Cor" Title="Cor" Width="200px" />
+    </Columns>
+</RadzenDataGrid>
+
+@code {
+    List<Categoria> categorias = new List<Categoria>();
+
+    protected override void OnInitialized()
+    {
+        categorias.Add(new Categoria { Codigo = 1, Descricao = "Supense", Cor = "Cinza" });
+        categorias.Add(new Categoria { Codigo = 2, Descricao = "Romance", Cor = "Rosa" });
+        categorias.Add(new Categoria { Codigo = 3, Descricao = "Ação", Cor = "Marrom" });
+        categorias.Add(new Categoria { Codigo = 4, Descricao = "Comédia", Cor = "Amarelo" });
+        categorias.Add(new Categoria { Codigo = 5, Descricao = "Aventura", Cor = "Azul" });
+        categorias.Add(new Categoria { Codigo = 6, Descricao = "Drama", Cor = "Vermelho" });
+        base.OnInitialized();
+    }
+
+}

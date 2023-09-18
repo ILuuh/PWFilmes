@@ -26,7 +26,7 @@ namespace PWFilmes.API.Controllers
                 categorias.Add(new Categoria { Codigo = 1, Descricao = "Terror", Cor = "Vermelho" });
                 categorias.Add(new Categoria { Codigo = 2, Descricao = "Suspense", Cor = "Azul" });
 
-            Categoria cat = categorias.FirstOrDefault(p => p.Codigo == codigo); // p = Propercies/ Propriedade 
+                Categoria cat = categorias.FirstOrDefault(p => p.Codigo == codigo); // p = Propercies/ Propriedade 
 
                 return Ok(cat);
             }

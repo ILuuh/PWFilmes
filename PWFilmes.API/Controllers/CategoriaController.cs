@@ -15,6 +15,10 @@ namespace PWFilmes.API.Controllers
             List<Categoria> categorias = new List<Categoria>();
             categorias.Add(new Categoria { Codigo = 1, Descricao = "Terror", Cor = "Vermelho" });
             categorias.Add(new Categoria { Codigo = 2, Descricao = "Suspense", Cor = "Azul" });
+            categorias.Add(new Categoria { Codigo = 3, Descricao = "Comédia", Cor = "Amarelo" });
+            categorias.Add(new Categoria { Codigo = 4, Descricao = "Romance", Cor = "Cinza" });
+            categorias.Add(new Categoria { Codigo = 5, Descricao = "Fantasia", Cor = "Rosa" });
+            categorias.Add(new Categoria { Codigo = 6, Descricao = "Aventura", Cor = "Verde" });
 
             return Ok(categorias);
         }

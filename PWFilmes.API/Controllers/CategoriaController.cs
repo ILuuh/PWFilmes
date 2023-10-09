@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using PWFilmes.API.Context;
 using PWFilmes.Domain;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,9 +10,20 @@ namespace PWFilmes.API.Controllers
     [ApiController]
     public class CategoriaController : ControllerBase
     {
+
+        private PWFilmesContext _context;
+
+        public CategoriaController(PWFilmesContext context)
+        {
+            _context = context;
+        }
+
         [HttpGet("listar")]
         public IActionResult Listar()
         {
+
+            _context.CategoriaSet.ToList();
+
             List<Categoria> categorias = new List<Categoria>();
             categorias.Add(new Categoria { Codigo = 1, Descricao = "Terror", Cor = "Vermelho" });
             categorias.Add(new Categoria { Codigo = 2, Descricao = "Suspense", Cor = "Azul" });

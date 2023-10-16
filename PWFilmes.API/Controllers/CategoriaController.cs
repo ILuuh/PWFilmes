@@ -10,7 +10,6 @@ namespace PWFilmes.API.Controllers
     [ApiController]
     public class CategoriaController : ControllerBase
     {
-
         private PWFilmesContext _context;
 
         public CategoriaController(PWFilmesContext context)
@@ -21,30 +20,37 @@ namespace PWFilmes.API.Controllers
         [HttpGet("listar")]
         public IActionResult Listar()
         {
-
-            _context.CategoriaSet.ToList();
-
-            List<Categoria> categorias = new List<Categoria>();
-            categorias.Add(new Categoria { Codigo = 1, Descricao = "Terror", Cor = "Vermelho" });
-            categorias.Add(new Categoria { Codigo = 2, Descricao = "Suspense", Cor = "Azul" });
-            categorias.Add(new Categoria { Codigo = 3, Descricao = "Comédia", Cor = "Amarelo" });
-            categorias.Add(new Categoria { Codigo = 4, Descricao = "Romance", Cor = "Cinza" });
-            categorias.Add(new Categoria { Codigo = 5, Descricao = "Fantasia", Cor = "Rosa" });
-            categorias.Add(new Categoria { Codigo = 6, Descricao = "Aventura", Cor = "Verde" });
-
-            return Ok(categorias);
+            return Ok(_context.CategoriaSet.AsEnumerable());
+            //return Ok(_context.CategoriaSet.ToList());
         }
-        
+
         [HttpGet("obter/{codigo}")] //Nome q está entre chaves tem q estar obrigatóriamente nos parâmetros da class
-            public IActionResult Obter( int codigo)
-            {
-                List<Categoria> categorias = new List<Categoria>();
-                categorias.Add(new Categoria { Codigo = 1, Descricao = "Terror", Cor = "Vermelho" });
-                categorias.Add(new Categoria { Codigo = 2, Descricao = "Suspense", Cor = "Azul" });
-
-                Categoria cat = categorias.FirstOrDefault(p => p.Codigo == codigo); // p = Propercies/ Propriedade 
-
-                return Ok(cat);
-            }
+        public IActionResult Obter(int codigo)
+        {
+            return Ok(_context.CategoriaSet.Find(codigo));
         }
+
+        [HttpPost("adicionar")]
+        public IActionResult Adicionar(Categoria categoria)
+        {
+            _context.CategoriaSet.Add(categoria);
+            _context.SaveChanges();
+
+            return Created("Created", $"Categoria {categoria.Codigo} Adicionada com Sucesso.");
+        }
+
+        [HttpPut("Atualizar")]
+        public IActionResult Atualizar(Categoria categoria)
+        {
+            if (!_context.CategoriaSet.Any(p => p.Codigo == categoria.Codigo))
+            {
+                _context.Attach(categoria);
+                _context.CategoriaSet.Update(categoria);
+                _context.SaveChanges();
+
+                return Ok($"Categoria {categoria.Codigo} Atualizada com Sucesso.");
+            }
+            return BadRequest($"categoria {categoria.Codigo} não Localizada");
+        }
+    }
 }

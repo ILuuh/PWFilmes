@@ -11,8 +11,9 @@ namespace PWFilmes.API.Context
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            const string connection = "server=localhost; port=3306; database=PWFilmes; uid=root;";//uid= user id; password= 1234
-            optionsBuilder.UseMySql(connection, ServerVersion.AutoDetect(connection));
+            const string connection = "server=localhost;port=3306;database=PWFilmes;userid=root"; //password=1234;
+            optionsBuilder.UseMySql(connection, 
+                ServerVersion.AutoDetect(connection));
             base.OnConfiguring(optionsBuilder);
         }
 

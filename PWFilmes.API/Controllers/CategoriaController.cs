@@ -42,7 +42,7 @@ namespace PWFilmes.API.Controllers
         [HttpPut("Atualizar")]
         public IActionResult Atualizar(Categoria categoria)
         {
-            if (!_context.CategoriaSet.Any(p => p.Codigo == categoria.Codigo))
+            if (_context.CategoriaSet.Any(p => p.Codigo == categoria.Codigo))
             {
                 _context.Attach(categoria);
                 _context.CategoriaSet.Update(categoria);
@@ -51,6 +51,19 @@ namespace PWFilmes.API.Controllers
                 return Ok($"Categoria {categoria.Codigo} Atualizada com Sucesso.");
             }
             return BadRequest($"categoria {categoria.Codigo} não Localizada");
+        }
+
+        [HttpDelete("excluir/{codigo}")]
+        public IActionResult Excluir(int codigo)
+        {
+            Categoria categoria = _context.CategoriaSet.Find(codigo);
+            if (categoria == null)
+                return BadRequest($"Categoria {codigo} não localizada");
+
+            _context.CategoriaSet.Remove(categoria);
+            _context.SaveChanges();
+
+            return Ok($"Categoria {codigo} Removida com Sucesso.");
         }
     }
 }

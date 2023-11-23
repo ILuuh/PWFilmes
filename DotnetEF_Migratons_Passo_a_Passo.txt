@@ -1,0 +1,12 @@
+1º Passo - Instalar o CLI (Command Line Interface) do .NET EF
+   dotnet tool install --global dotnet-ef --version 5.0.0
+
+2º Passo - Acessar o Package Manager Console (Console dentro do Visual Studio)
+   Tools -> NuGet Package Manager -> Package Manager Console
+
+3º Passo - Gerar a Migração (Migrations, será por meio desse processo que será gerado os scripts que serão executados no banco de dados) 
+   -> Acessar o diretório da aplicação PWFilmes.API, utilizando o seguinte comando: "cd .\PWFilmes.API"
+   -> dotnet ef migrations add CriacaoCategoria (Executar no Package Manager Console)
+
+4º Passo - Aplicar a Migração no Banco de Dados
+   -> dotnet ef database update (Executar no Package Manager Console)

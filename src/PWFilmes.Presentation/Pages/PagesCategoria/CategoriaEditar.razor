@@ -1,6 +1,9 @@
-﻿@page "/categoria-editar"
+﻿@page "/categoria-editar/{codigoCategoria:int}"
 
 @using PWFilmes.Domain;
+@using System.Text.Json;
+
+@inject HttpClient Http;
 
 <h3>Editar Categoria</h3>
 
@@ -37,7 +40,7 @@
         <RadzenButton Icon="delete_forever"
                       ButtonStyle="ButtonStyle.Danger"
                       Text="Cancelar"
-                      class="rz-border-radius-10"/>
+                      class="rz-border-radius-10" />
         <RadzenButton Icon="done"
                       ButtonStyle="ButtonStyle.Success"
                       Text="Confirmar"
@@ -46,7 +49,21 @@
     </RadzenStack>
 </EditForm>
 
-@code {
-    Categoria categoriaModel = new Categoria();
+@codigoCategoria
 
+@code {
+
+    [Parameter]
+    public int codigoCategoria { get; set; }
+    Categoria categoriaModel;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var response = await Http.GetAsync($"api/Categoria/obter/{codigoCategoria}");
+        var content = await response.Content.ReadAsStringAsync();
+        var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true}; 
+        categoriaModel = JsonSerializer.Deserialize<Categoria>(content, options);
+
+        await base.OnInitializedAsync();
+    }
 }
